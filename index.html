@@ -7,8 +7,188 @@
 <title>Needle Craft by Precious.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,900;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+/* ===== Layout + typography taken from the new index design (colours unchanged) ===== */
+:root{
+  --font-display:'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body:'Plus Jakarta Sans', system-ui, sans-serif;
+}
+body{font-family:var(--font-body);}
+html{overflow-x:clip;}
+
+/* announcement bar */
+.marquee-banner{font-family:var(--font-body);font-size:0.75rem;font-weight:500;letter-spacing:0.025em;padding:8px 16px;}
+
+/* header */
+.site-header{display:block;padding:0;box-shadow:0 1px 2px rgba(0,0,0,0.5);}
+.header-inner{max-width:1280px;margin:0 auto;padding:0 16px;min-height:64px;display:flex;flex-wrap:wrap;align-items:center;gap:16px;}
+.brand{gap:8px;}
+.brand-name{font-weight:800;font-size:1.5rem;letter-spacing:-0.025em;}
+.site-nav{gap:24px;font-size:0.875rem;font-weight:500;}
+.site-header .search-row{order:3;flex:1;min-width:0;max-width:448px;margin:0 16px;}
+.site-header .search-icon{left:16px;}
+.site-header #searchInput{
+  border-radius:999px;padding:10px 16px 10px 44px;font-size:0.875rem;
+  transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.site-header #searchInput:focus{box-shadow:0 0 0 4px rgba(212,175,55,0.1);}
+.header-actions{order:4;margin-left:auto;gap:8px;}
+.site-nav{order:2;}
+@media (max-width:860px){
+  .header-inner{padding:12px 16px;}
+  .site-header .search-row{order:5;flex:1 1 100%;max-width:none;margin:0;}
+}
+@media (min-width:640px){ .header-inner{padding:0 24px;min-height:80px;} }
+@media (min-width:1024px){ .header-inner{padding:0 32px;} }
+@media (min-width:861px) and (max-width:1000px){ .site-header .search-row{margin:0 4px;} }
+
+/* hero: full-width dotted band + rounded spotlight card */
+.hero-wrap{
+  position:relative;overflow:hidden;
+  background:linear-gradient(180deg, var(--paper) 0%, var(--paper) 55%, var(--paper-raised) 100%);
+}
+.hero-wrap::before{
+  content:"";position:absolute;inset:0;opacity:0.2;pointer-events:none;
+  background-image:radial-gradient(var(--brass) 1px, transparent 1px);
+  background-size:16px 16px;
+}
+.hero{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:32px;
+  max-width:1280px;margin:0 auto;padding:48px 16px;text-align:center;
+}
+.hero-copy{max-width:36rem;}
+/* the <em> tags in the heading are left open in the original markup and wrap the rest of the hero; this keeps the layout intact without touching the heading */
+.hero > em, .hero > em > em{display:contents;}
+.hero-eyebrow{
+  display:inline-block;padding:4px 12px;border-radius:999px;
+  background:rgba(212,175,55,0.2);border:1px solid rgba(212,175,55,0.3);
+  font-family:var(--font-body);font-size:0.75rem;font-weight:600;letter-spacing:0.05em;
+  margin-bottom:16px;
+}
+.hero-eyebrow::before{display:none;}
+.hero h1{
+  font-size:1.875rem;font-weight:800;
+  letter-spacing:-0.025em;line-height:1.25;margin:0 0 16px;
+}
+.hero p{font-size:1rem;line-height:1.625;margin:0 auto 32px;max-width:none;}
+.hero-ctas{justify-content:center;gap:16px;flex-direction:column;align-items:stretch;}
+.hero-ctas .btn{border-radius:12px;padding:14px 32px;font-weight:600;justify-content:center;box-shadow:0 10px 15px -3px rgba(212,175,55,0.3);}
+.hero-ctas .btn:hover{box-shadow:0 10px 20px -3px rgba(212,175,55,0.5);}
+.hero-ctas .btn-ghost{box-shadow:none;}
+.hero-visual{
+  width:100%;max-width:448px;padding:0;aspect-ratio:4/3;
+  border-radius:24px;overflow:hidden;
+  border:1px solid rgba(212,175,55,0.25);
+  box-shadow:0 25px 50px -12px rgba(0,0,0,0.6);
+  cursor:pointer;
+}
+.hero-visual .frame{position:absolute;inset:0;aspect-ratio:auto;border:0;}
+.hero-visual .frame img{transition:transform .7s ease;}
+.hero-visual:hover .frame img{transform:scale(1.05);}
+.hero-spotlight{
+  position:absolute;left:16px;right:16px;bottom:16px;z-index:2;
+  margin:0;padding:16px;border-radius:16px;text-align:left;
+  background:rgba(10,11,13,0.8);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.1);
+}
+.hero-spotlight .label{font-family:var(--font-body);font-size:0.75rem;font-weight:600;text-transform:none;letter-spacing:0;}
+.hero-spotlight .name{font-size:0.875rem;font-weight:700;}
+@media (min-width:640px){
+  .hero h1{font-size:3rem;}
+  .hero{padding:48px 24px;}
+  .hero p{font-size:1.125rem;}
+  .hero-ctas{flex-direction:row;align-items:center;}
+}
+@media (min-width:768px){
+  .hero{flex-direction:row;text-align:left;}
+  .hero p{margin-left:0;}
+  .hero-ctas{justify-content:flex-start;}
+  .hero-visual{width:50%;}
+}
+@media (min-width:1024px){ .hero{padding:80px 32px;} .hero h1{font-size:3.75rem;} }
+
+/* shop section */
+.shop{max-width:1280px;padding:40px 16px 90px;}
+@media (min-width:640px){ .shop{padding-left:24px;padding-right:24px;} }
+@media (min-width:1024px){ .shop{padding-left:32px;padding-right:32px;} }
+.section-heading{align-items:center;gap:16px;margin-bottom:32px;}
+.section-heading h2{font-size:1.5rem;font-weight:700;letter-spacing:-0.025em;}
+.section-heading p{font-size:0.875rem;margin:0;}
+.category-rail{margin:0;gap:8px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;}
+.category-rail::-webkit-scrollbar{display:none;}
+.cat-pill{border-radius:12px;padding:8px 16px;font-size:0.875rem;font-weight:500;white-space:nowrap;}
+@media (min-width:768px){ .category-rail{padding-bottom:0;} }
+
+.shop-controls{
+  display:block;margin-bottom:32px;padding:16px;
+  background:var(--paper-raised);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 1px 2px rgba(0,0,0,0.5);
+}
+.select-group{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;width:100%;}
+select{border-radius:8px;padding:6px 12px;font-size:0.875rem;}
+.empty-state{border-radius:24px;padding:64px 20px;margin:32px 0;}
+.empty-state .btn{border-radius:12px;font-weight:600;}
+
+/* footer */
+.site-footer{padding:48px 16px 0;margin-top:64px;}
+.footer-grid{grid-template-columns:1fr;gap:32px;max-width:1280px;padding-bottom:48px;}
+@media (min-width:768px){ .footer-grid{grid-template-columns:repeat(4,1fr);} }
+.footer-grid h4{font-size:1rem;font-weight:600;margin:0 0 12px;}
+.footer-brand p{font-size:0.75rem;line-height:1.625;max-width:none;}
+.footer-links{gap:8px;font-size:0.75rem;}
+.newsletter-row{gap:8px;}
+.newsletter-row input{border-radius:8px;font-size:0.75rem;min-width:0;}
+.newsletter-row button{border-radius:8px;font-size:0.75rem;font-weight:600;}
+.footer-bottom{max-width:none;margin:0 -16px;padding:24px 16px;text-align:center;font-family:var(--font-body);font-size:0.75rem;}
+
+/* featured products: same curved edges + fonts as the featured spotlight */
+.product-card{border-radius:24px;overflow:hidden;}
+.product-cat{font-family:var(--font-body);font-size:0.75rem;font-weight:600;text-transform:none;letter-spacing:0;}
+.product-name{font-family:var(--font-body);font-size:0.875rem;font-weight:700;}
+/* spotlight takes the height of a featured product card (set by the script below) */
+.hero-visual{aspect-ratio:auto;height:var(--card-h,480px);}
+
+/* ===== fonts matched section-by-section to the new index (price tags untouched) ===== */
+.hero-ctas .btn{font-size:1rem;font-weight:600;}
+.cat-pill.active{font-weight:500;}
+#sortSelect{font-weight:500;}
+.count-badge{font-family:var(--font-body);font-size:0.6875rem;font-weight:700;}
+.badge-sale{font-family:var(--font-body);font-size:0.7rem;font-weight:700;}
+.empty-state h3{font-size:1.125rem;font-weight:700;}
+.empty-state p{font-size:0.875rem;}
+.empty-state .btn{font-size:0.875rem;font-weight:600;}
+.cart-head h3{font-size:1.125rem;font-weight:700;}
+.cart-empty p{font-size:0.875rem;}
+.cart-summary{font-family:var(--font-body);font-size:0.875rem;}
+.summary-row span:last-child{font-weight:600;}
+.summary-row.total{font-size:1rem;font-weight:700;}
+.summary-row.total span:last-child{font-weight:700;}
+.whatsapp-btn{font-size:1rem;font-weight:700;}
+
+/* ===== featured spotlight: swipe gallery + pop-up like the featured products ===== */
+.hero-visual .carousel-arrow{z-index:3;}
+.hero-visual:hover .carousel-arrow{opacity:1;}
+.hero-spotlight .carousel-dots{position:static;transform:none;margin-top:8px;gap:6px;}
+
+/* pop-up: always-visible arrows so desktop users can step through the photos */
+.qv-gallery .carousel-arrow{opacity:1;}
+
+/* desktop pop-up: arrows on the outer edges of the two photos (prev = left edge of photo 1, next = right edge of photo 2) */
+@media (min-width:721px){
+  .qv-gallery .carousel-arrow.prev{left:12px;}
+  .qv-gallery .carousel-arrow.next{right:auto;left:calc(200% - 48px);}
+}
+
+/* pop-up (desktop): arrows always visible, sitting at the left/right edges of the image */
+@media (min-width:721px){
+  .qv-gallery .carousel-arrow{opacity:1;width:36px;height:36px;font-size:1.3rem;}
+  .qv-gallery .carousel-arrow.prev{left:12px;}
+  .qv-gallery .carousel-arrow.next{right:12px;}
+}
+</style>
 <script>
   // Cache-bust data.js on every load so edits saved from admin.html always
   // show up on refresh, instead of the browser reusing a stale copy.
@@ -20,6 +200,7 @@
 <div class="marquee-banner" id="bannerText">Loading&hellip;</div>
 
 <header class="site-header">
+<div class="header-inner">
   <a href="#" class="brand">
     <img id="logoImg" src="" alt="" hidden>
     <span class="brand-name" id="siteNameText">Needle Craft by Precious.</span>
@@ -29,18 +210,24 @@
     <a href="#categories-section">Categories</a>
     <a href="#about-section">About</a>
   </nav>
+  <div class="search-row">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input type="search" id="searchInput" placeholder="Search products by name, category, or description&hellip;" aria-label="Search products">
+  </div>
   <div class="header-actions">
     <button class="icon-btn" id="cartBtn" aria-label="Open cart">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 3h2l2.4 12.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L22 7H6"/></svg>
       <span class="count-badge" id="cartCount">0</span>
     </button>
   </div>
+</div>
 </header>
 
+<div class="hero-wrap">
 <section class="hero" id="about-section">
   <div class="hero-copy">
     <div class="hero-eyebrow">Luxury &middot; Bespoke</div>
-    <h1> LADIES &rsquo; <em> <em>OUTFIT  </h1>
+    <h1> LADIES &rsquo; <em> <em>OUTFIT  </em></em></h1>
     <p id="taglineText">Considered pieces for a quieter kind of everyday.</p>
     <div class="hero-ctas">
       <button type="button" class="btn" id="heroSearchBtn" aria-label="Search products">
@@ -61,6 +248,7 @@
     </div>
   </div>
 </section>
+</div>
 
 <section class="shop" id="products-section">
   <div class="section-heading">
@@ -68,15 +256,10 @@
       <h2>Featured Products</h2>
       <p>Hand-selected pieces for your everyday wardrobe</p>
     </div>
+    <div class="category-rail" id="categoryRail"></div>
   </div>
 
-  <div class="category-rail" id="categoryRail"></div>
-
   <div class="shop-controls">
-    <div class="search-row">
-      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input type="search" id="searchInput" placeholder="Search products by name, category, or description&hellip;" aria-label="Search products">
-    </div>
     <div class="select-group">
       <select id="priceFilter">
         <option value="all">Filter by: All prices</option>
@@ -141,7 +324,7 @@
     </div>
     <div>
       <h4>Stay Connected</h4>
-      <p style="color:#a7a294;font-size:0.88rem;">Subscribe for early access to new arrivals.</p>
+      <p style="color:#a7a294;font-size:0.75rem;">Subscribe for early access to new arrivals.</p>
       <form class="newsletter-row" id="newsletterForm">
         <input type="email" placeholder="Your email" required aria-label="Email address">
         <button type="submit">Join</button>
@@ -151,6 +334,79 @@
   <div class="footer-bottom">&copy; <span id="yearText"></span> <span id="footerCopyName">Needle Craft by Precious.</span>. All rights reserved.</div>
 </footer>
 
+<script>
+  // Match the featured spotlight height to a featured product card.
+  (function(){
+    var root = document.documentElement, ro;
+    function sync(){
+      var card = document.querySelector(".product-card");
+      if(!card) return;
+      var h = Math.round(card.getBoundingClientRect().height);
+      if(h > 0) root.style.setProperty("--card-h", h + "px");
+      if(!ro && window.ResizeObserver){ ro = new ResizeObserver(sync); ro.observe(card); }
+    }
+    window.addEventListener("load", function(){
+      sync();
+      var grid = document.getElementById("productGrid");
+      if(grid) new MutationObserver(function(){ if(ro){ro.disconnect();ro=null;} sync(); }).observe(grid, {childList:true});
+    });
+    window.addEventListener("resize", sync);
+  })();
+</script>
 <script src="script.js"></script>
+<script>
+  // Featured spotlight uses the same swipe gallery (arrows, dots, drag) and
+  // opens the same product pop-up as the featured product cards.
+  (function(){
+    var currentId = null;
+    function build(){
+      if(typeof state === "undefined" || !state.data) return;
+      var p = state.data.products.find(function(x){ return x.featured; }) || state.data.products[0];
+      var old = document.querySelector(".hero-visual");
+      if(!old || !p) return;
+      var media = old.cloneNode(true);            // fresh node = no duplicate listeners on re-render
+      old.parentNode.replaceChild(media, old);
+      currentId = p.id;
+
+      var images = getImages(p);
+      var slides = (images.length ? images : [""]).map(function(src, i){
+        return '<div class="carousel-slide"><img' + (i === 0 ? ' id="spotlightImg"' : '') +
+               ' src="' + src + '" alt="' + escapeHtml(p.name) + '"></div>';
+      }).join("");
+      media.querySelector(".frame").innerHTML = '<div class="carousel-track">' + slides + '</div>';
+
+      media.querySelectorAll(".carousel-arrow, .carousel-dots").forEach(function(n){ n.remove(); });
+      if(images.length > 1){
+        media.insertAdjacentHTML("beforeend",
+          '<button class="carousel-arrow prev" aria-label="Previous image">\u2039</button>' +
+          '<button class="carousel-arrow next" aria-label="Next image">\u203a</button>');
+        media.querySelector(".hero-spotlight > div").insertAdjacentHTML("beforeend",
+          '<div class="carousel-dots">' + images.map(function(_, i){
+            return '<button class="carousel-dot' + (i === 0 ? ' active' : '') + '" data-i="' + i + '" aria-label="Show image ' + (i + 1) + '"></button>';
+          }).join("") + '</div>');
+        initCarousel(media, images.length);
+      }
+    }
+
+    // Let the arrows/dots in the pop-up and spotlight receive their own click
+    // (otherwise the gallery's drag handler captures the pointer and swallows it).
+    document.addEventListener("pointerdown", function(e){
+      if(e.target.closest && e.target.closest(".qv-gallery .carousel-arrow, .qv-gallery .carousel-dot, .hero-visual .carousel-arrow, .hero-visual .carousel-dot")) e.stopPropagation();
+    }, true);
+
+    document.querySelector(".hero").addEventListener("click", function(e){
+      if(currentId && e.target.closest && e.target.closest(".hero-visual")) openQuickView(currentId);
+    });
+
+    // Arrow / dot presses shouldn't start a drag (drag capture was swallowing their clicks).
+    document.addEventListener("pointerdown", function(e){
+      if(e.target.closest && e.target.closest(".carousel-arrow, .carousel-dot")) e.stopPropagation();
+    }, true);
+
+    var baseRender = render;
+    render = function(){ baseRender.apply(this, arguments); build(); };
+    build();
+  })();
+</script>
 </body>
 </html>
